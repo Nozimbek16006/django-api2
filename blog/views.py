@@ -1,4 +1,3 @@
-from django.db.migrations import serializer
 from rest_framework import status
 from rest_framework.response import Response
 from django.utils import timezone
