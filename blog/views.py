@@ -1,3 +1,4 @@
+from django.db.migrations import serializer
 from rest_framework import status
 from rest_framework.response import Response
 from django.utils import timezone
@@ -18,3 +19,14 @@ class PostList(APIView):
             },
             "timestamp": timezone.localtime(timezone.now())
         })
+
+class PostCreateView(APIView):
+    def post(self, request):
+        serializer = PostCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "status": status.HTTP_201_CREATED,
+                "data": serializer.data,
+                "timestamp": timezone.localtime(timezone.now())
+            })
